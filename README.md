@@ -8,7 +8,7 @@ To Do:
 - [ ] Find way to accept operands in a more elegant method
 
 
-Note that it will not directly compile binaries yet. All operands must be written as their explicit name, e.g. R0 or 34h. This means that the acceptable file would look similar to `0x00 0x0D 0x5235 ...` where 0x5235 = 21045b = 'R5'
+Note that it will not directly compile binaries yet. All operands must be written as their explicit name, e.g. R0 or 34h. This means that the acceptable file would look similar to `0x00 0x0D 0x5235 ...`
 
 ```
 Hex
