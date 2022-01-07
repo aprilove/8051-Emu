@@ -318,23 +318,143 @@ void eval(int instruction) {
 			break;
 		// ORL
 		case 0x42:
+		case 0x43:
+		case 0x44:
+		case 0x45:
+		case 0x46:
+		case 0x47:
+		case 0x48:
+		case 0x49:
+		case 0x4A:
+		case 0x4B:
+		case 0x4C:
+		case 0x4D:
+		case 0x4E:
 		case 0x4F:
+			if (inst[++PC] == 'A') {
+				++PC;
+				if (inst[++PC] == '@R0')
+					reg[A] = reg[A] | stack[RR0];
+				else if (inst[++PC] == '@R1')
+					reg[A] = reg[A] | stack[RR1];
+				reg[A] = reg[A] | inst[++PC];
+			} else {
+				++PC;
+				if (inst[++PC] == 'A')
+					stack[SP] = stack[SP] | reg[A];
+				else
+					stack[SP] = stack[SP] | stack[inst[++PC]];
+			}
 			break;
 		// ANL
 		case 0x52:
+		case 0x53:
+		case 0x54:
+		case 0x55:
+		case 0x56:
+		case 0x57:
+		case 0x58:
+		case 0x59:
+		case 0x5A:
+		case 0x5B:
+		case 0x5C:
+		case 0x5D:
+		case 0x5E:
 		case 0x5F:
+			if (inst[++PC] == 'A') {
+				++PC;
+				if (inst[++PC] == '@R0')
+					reg[A] = reg[A] & stack[RR0];
+				else if (inst[++PC] == '@R1')
+					reg[A] = reg[A] & stack[RR1];
+				reg[A] = reg[A] & inst[++PC];
+			} else {
+				++PC;
+				if (inst[++PC] == 'A')
+					stack[SP] = stack[SP] & reg[A];
+				else
+					stack[SP] = stack[SP] & stack[inst[++PC]];
+			}
 			break;
 		// XRL
 		case 0x62:
+		case 0x63:
+		case 0x64:
+		case 0x65:
+		case 0x66:
+		case 0x67:
+		case 0x68:
+		case 0x69:
+		case 0x6A:
+		case 0x6B:
+		case 0x6C:
+		case 0x6D:
+		case 0x6E:
 		case 0x6F:
+			if (inst[++PC] == 'A') {
+				++PC;
+				if (inst[++PC] == '@R0')
+					reg[A] = reg[A] ^ stack[RR0];
+				else if (inst[++PC] == '@R1')
+					reg[A] = reg[A] ^ stack[RR1];
+				reg[A] = reg[A] ^ inst[++PC];
+			} else {
+				++PC;
+				if (inst[++PC] == 'A')
+					stack[SP] = stack[SP] ^ reg[A];
+				else
+					stack[SP] = stack[SP] ^ stack[inst[++PC]];
+			}
 			break;
 		// SUBB
 		case 0x94:
+		case 0x95:
+		case 0x96:
+		case 0x97:
+		case 0x98:
+		case 0x99:
+		case 0x9A:
+		case 0x9B:
+		case 0x9C:
+		case 0x9D:
+		case 0x9E:
 		case 0x9F:
+			if (inst[++PC] == 'A') {
+				++PC;
+				if (inst[++PC] == '@R0')
+					reg[A] -= stack[RR0] + reg[F];
+				else if (inst[++PC] == '@R1')
+					reg[A] -= stack[RR1] + reg[F];
+				else if (inst[++PC] == 'R0')
+					reg[A] -= reg[R0] + reg[F];
+				else if (inst[++PC] == 'R1')
+					reg[A] -= reg[R1] + reg[F];
+				else if (inst[++PC] == 'R2')
+					reg[A] -= reg[R2] + reg[F];
+				else if (inst[++PC] == 'R3')
+					reg[A] -= reg[R3] + reg[F];
+				else if (inst[++PC] == 'R4')
+					reg[A] -= reg[R4] + reg[F];
+				else if (inst[++PC] == 'R5')
+					reg[A] -= reg[R4] + reg[F];
+				else if (inst[++PC] == 'R6')
+					reg[A] -= reg[R4] + reg[F];
+				else if (inst[++PC] == 'R7')
+					reg[A] -= reg[R4] + reg[F];
+				else
+					reg[A] -= stack[inst[++PC]] + reg[F];
+			}
 			break;
 		// XCH NOT YET SUPPORTED
 		// MOV NOT FULLY IMPLEMNETED
 		case 0x74:
+			break;
+		// CLR
+		case 0xC2:
+			stack[inst[++PC]] = 0;
+			break;
+		case 0xE4:
+			reg[A] = 0;
 			break;
 		default:
 			printf("Not instruction: 0x%02X", inst);
