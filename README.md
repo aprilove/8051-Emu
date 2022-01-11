@@ -5,7 +5,8 @@ Can be found here (https://www.keil.com/support/man/docs/is51/is51_opcodes.htm)
 
 To Do:
 - [ ] Finish support for all instructions
-- [ ] Find way to accept operands in a more elegant method
+- [ ] Find way to read operands in a more elegant method
+- [ ] Organize in structs
 
 
 Note that it will not directly compile binaries yet. All operands must be written as their explicit name, e.g. R0 or 34h. This means that the acceptable file would look similar to `0x00 0x0D 0x5235 ...`
